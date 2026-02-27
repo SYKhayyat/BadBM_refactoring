@@ -1,9 +1,8 @@
-package edu.touro.mco152.bm;
+package app;
 
-import edu.touro.mco152.bm.persist.DiskRun;
-import edu.touro.mco152.bm.ui.Gui;
-import edu.touro.mco152.bm.ui.MainFrame;
-import edu.touro.mco152.bm.ui.SelectFrame;
+import app.Gui;
+import app.MainFrame;
+import app.SelectFrame;
 
 import javax.swing.SwingWorker.StateValue;
 import javax.swing.*;
@@ -41,7 +40,7 @@ public class App {
     // run configuration
     public static boolean readTest = false;
     public static boolean writeTest = true;
-    public static DiskRun.BlockSequence blockSequence = DiskRun.BlockSequence.SEQUENTIAL;
+    public static app.DiskRun.BlockSequence blockSequence = app.DiskRun.BlockSequence.SEQUENTIAL;
     public static int numOfMarks = 25;      // desired number of marks
     public static int numOfBlocks = 32;     // desired number of blocks
     public static int blockSizeKb = 512;    // size of a block in KBs
@@ -149,7 +148,7 @@ public class App {
         value = p.getProperty("autoReset", String.valueOf(autoReset));
         autoReset = Boolean.valueOf(value);
         value = p.getProperty("blockSequence", String.valueOf(blockSequence));
-        blockSequence = DiskRun.BlockSequence.valueOf(value);
+        blockSequence = app.DiskRun.BlockSequence.valueOf(value);
         value = p.getProperty("showMaxMin", String.valueOf(showMaxMin));
         showMaxMin = Boolean.valueOf(value);
         value = p.getProperty("numOfFiles", String.valueOf(numOfMarks));
@@ -220,13 +219,13 @@ public class App {
         Gui.runPanel.clearTable();
 
         System.out.println("loading stored run data");
-        DiskRun.findAll().stream().forEach((DiskRun run) -> {
+        app.DiskRun.findAll().stream().forEach((app.DiskRun run) -> {
             Gui.runPanel.addRun(run);
         });
     }
 
     public static void clearSavedRuns() {
-        DiskRun.deleteAll();
+        app.DiskRun.deleteAll();
 
         loadSavedRuns();
     }

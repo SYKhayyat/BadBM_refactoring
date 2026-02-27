@@ -1,7 +1,7 @@
-package edu.touro.mco152.bm.ui;
+package app;
 
-import edu.touro.mco152.bm.App;
-import edu.touro.mco152.bm.DiskMark;
+import app.App;
+import app.DiskMark;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

@@ -1,9 +1,9 @@
-package edu.touro.mco152.bm.ui;
+package app;
 
-import edu.touro.mco152.bm.App;
-import edu.touro.mco152.bm.Util;
-import edu.touro.mco152.bm.persist.DiskRun;
-import edu.touro.mco152.bm.persist.DiskRun.BlockSequence;
+import app.App;
+import app.Util;
+import app.DiskRun;
+import app.DiskRun.BlockSequence;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
@@ -14,11 +14,11 @@ import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static edu.touro.mco152.bm.App.dataDir;
+import static app.App.dataDir;
 import static java.awt.Font.PLAIN;
 
 /**
- * Creates the MainFrame with methods that enable easy control
+ * Creates the app.MainFrame with methods that enable easy control
  */
 @SuppressWarnings("rawtypes")
 public final class MainFrame extends javax.swing.JFrame {
@@ -76,7 +76,7 @@ public final class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel rMinLabel;
     private javax.swing.JButton resetButton;
     private javax.swing.JMenuItem resetSequenceMenuItem;
-    private edu.touro.mco152.bm.ui.RunPanel runPanel;
+    private app.RunPanel runPanel;
     private javax.swing.JCheckBoxMenuItem showMaxMinCheckBoxMenuItem;
     private javax.swing.JButton startButton;
     private javax.swing.JTabbedPane tabbedPane;
@@ -86,7 +86,7 @@ public final class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel wMinLabel;
     private javax.swing.JCheckBoxMenuItem writeSyncCheckBoxMenuItem;
     /**
-     * Creates new form MainFrame
+     * Creates new form app.MainFrame
      */
     public MainFrame() {
         initComponents();
@@ -139,7 +139,7 @@ public final class MainFrame extends javax.swing.JFrame {
         }
         modeCombo.setSelectedItem(modeStr);
 
-        //String blockOrderStr = App.randomEnable ? "random":"sequential";
+        //String blockOrderStr = app.App.randomEnable ? "random":"sequential";
         orderComboBox.setSelectedItem(App.blockSequence);
 
         numFilesCombo.setSelectedItem(String.valueOf(App.numOfMarks));
@@ -188,7 +188,7 @@ public final class MainFrame extends javax.swing.JFrame {
         rMaxLabel = new javax.swing.JLabel();
         rAvgLabel = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
-        runPanel = new edu.touro.mco152.bm.ui.RunPanel();
+        runPanel = new app.RunPanel();
         eventScrollPane = new javax.swing.JScrollPane();
         msgTextArea = new javax.swing.JTextArea();
         locationPanel = new javax.swing.JPanel();
@@ -763,7 +763,7 @@ public final class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_showMaxMinCheckBoxMenuItemActionPerformed
 
     private void orderComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderComboBoxActionPerformed
-        App.blockSequence = (DiskRun.BlockSequence) orderComboBox.getSelectedItem();
+        App.blockSequence = (app.DiskRun.BlockSequence) orderComboBox.getSelectedItem();
     }//GEN-LAST:event_orderComboBoxActionPerformed
 
     private void writeSyncCheckBoxMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_writeSyncCheckBoxMenuItemActionPerformed
@@ -789,7 +789,7 @@ public final class MainFrame extends javax.swing.JFrame {
         String modeStr = (String) modeCombo.getSelectedItem();
         App.readTest = modeStr.contains("read");
         App.writeTest = modeStr.contains("write");
-        App.blockSequence = (DiskRun.BlockSequence) orderComboBox.getSelectedItem();
+        App.blockSequence = (app.DiskRun.BlockSequence) orderComboBox.getSelectedItem();
         App.numOfMarks = Integer.valueOf((String) numFilesCombo.getSelectedItem());
         App.numOfBlocks = Integer.valueOf((String) numBlocksCombo.getSelectedItem());
         App.blockSizeKb = Integer.valueOf((String) blockSizeCombo.getSelectedItem());

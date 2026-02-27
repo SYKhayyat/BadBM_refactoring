@@ -1,11 +1,10 @@
-/*
+package app;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.touro.mco152.bm.ui;
 
-import edu.touro.mco152.bm.persist.DiskRun;
+import app.DiskRun;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ComponentAdapter;

@@ -1,9 +1,8 @@
-/*
+package app;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.touro.mco152.bm.persist;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -36,7 +35,7 @@ public class EM {
                 em = emf.createEntityManager();
             } catch (PersistenceException jpe)
             {
-                System.err.println("EM: FATAL Error initializing persistence: " + jpe.getMessage());
+                System.err.println("app.EM: FATAL Error initializing persistence: " + jpe.getMessage());
                 if (jpe.getCause() instanceof DatabaseException)
                     System.err.println("Make sure another copy of program or DerbyDB is not already running");
                 else
@@ -46,7 +45,7 @@ public class EM {
             }
             catch (Exception exc)
             {
-                System.err.println("EM: FATAL Error initializing persistence: " + exc.getMessage());
+                System.err.println("app.EM: FATAL Error initializing persistence: " + exc.getMessage());
                 System.err.println("Make sure persistence.xml is accessible");
                 System.exit(5);
             }

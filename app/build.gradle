@@ -28,7 +28,7 @@ dependencies {
     testImplementation libs.junit.jupiter
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
+implementation 'org.eclipse.persistence:eclipselink:4.0.2'
     // This dependency is used by the application.
     implementation libs.guava
 }
@@ -36,15 +36,46 @@ dependencies {
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'org.example.App'
+    mainClass = 'app.App'
+}
+jar {
+archiveFileName = 'badBM.jar'
+  manifest {
+    attributes 'Main-Class': application.mainClass
+  }
+}
+task customFatJar(type: Jar) {
+    dependsOn classes  // ensure classes are compiled first
+    
+    manifest {
+        attributes 'Main-Class': 'app.App'
+    }
+    archiveBaseName = 'badBM'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    
+    // Include your compiled classes
+    from sourceSets.main.output
+    
+    // Include all runtime dependencies
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
 }
 
+sourceSets {
+    main {
+        // Registers the Java output directory as a valid resource output
+        output.dir(java.classesDirectory)
+    }
+}
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
