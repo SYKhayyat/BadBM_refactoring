@@ -1,28 +1,8 @@
-# eclipse items
-.project
-.settings
-.classpath
+# Ignore Gradle project-specific cache directory
+.gradle
 
-IntelliJ Items
-.idea/
-*.iml
+# Ignore Gradle build output directory
+build
 
-# build artifacts
-.gradle/
-bin/
-build/
-out/
-
-# program execution artifacts
-jDiskMarkData/
-doc/
-
-#MAC junk
-.DS_Store
-
-# Gradle stuff we dont use yet
-gradle/wrapper
-
-
-#ignore changes to the apps properties file
-jdm.properties
+# Ignore Kotlin plugin data
+.kotlin
