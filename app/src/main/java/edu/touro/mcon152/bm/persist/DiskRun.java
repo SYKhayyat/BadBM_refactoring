@@ -1,4 +1,4 @@
-package app;
+package edu.touro.mcon152.bm.persist;
 
 import jakarta.persistence.*;
 import java.io.Serial;
@@ -14,9 +14,9 @@ import java.util.List;
  * write/read test
  */
 @Entity
-@Table(name = "app.DiskRun")
+@Table(name = "DiskRun")
 @NamedQueries({
-        @NamedQuery(name = "app.DiskRun.findAll",
+        @NamedQuery(name = "DiskRun.findAll",
                 query = "SELECT d FROM DiskRun d")
 })
 public class DiskRun implements Serializable {
@@ -80,12 +80,11 @@ public class DiskRun implements Serializable {
 
     /**
      * Gets a list of all the disk transactions done so far
-     * @return a list of all the disk transaction done, stored as app.DiskRun objects
+     * @return a list of all the disk transaction done, stored as edu.touro.mcon152.bm.persist.DiskRun objects
      */
     public static List<DiskRun> findAll() {
         EntityManager em = EM.getEntityManager();
-        return em.createNamedQuery("app.DiskRun.findAll", DiskRun.class).getResultList();
-    }
+        return em.createNamedQuery("DiskRun.findAll", DiskRun.class).getResultList();    }
 
     /**
      * Deletes the history of all disk transactions done so far

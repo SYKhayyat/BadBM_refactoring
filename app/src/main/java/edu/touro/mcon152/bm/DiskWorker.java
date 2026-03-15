@@ -1,9 +1,8 @@
-package app;
+package edu.touro.mcon152.bm;
 
-import app.DiskRun;
-import app.EM;
-import app.Gui;
-
+import edu.touro.mcon152.bm.persist.DiskRun;
+import edu.touro.mcon152.bm.persist.EM;
+import edu.touro.mcon152.bm.ui.Gui;
 import jakarta.persistence.EntityManager;
 import javax.swing.*;
 import java.io.File;
@@ -15,18 +14,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static app.App.*;
-import static app.DiskMark.MarkType.READ;
-import static app.DiskMark.MarkType.WRITE;
+import static edu.touro.mcon152.bm.App.*;
+import static edu.touro.mcon152.bm.DiskMark.MarkType.READ;
+import static edu.touro.mcon152.bm.DiskMark.MarkType.WRITE;
 
 /**
  * Execute disk benchmarking as a Swing-compliant thread (only one of these threads can run at
  * once.) Cooperates with Swing to provide and make use of interim and final progress and
  * information, which is also recorded as needed to the persistence store, and log.
  * <p>
- * Depends on static values that describe the benchmark to be done having been set in app.App and app.Gui classes.
- * The app.DiskRun class is used to keep track of and persist info about each benchmark at a higher level (a run),
- * while the app.DiskMark class described each iteration's result, which is displayed by the UI as the benchmark run
+ * Depends on static values that describe the benchmark to be done having been set in edu.touro.mcon152.bm.App and edu.touro.mcon152.bm.ui.Gui classes.
+ * The edu.touro.mcon152.bm.persist.DiskRun class is used to keep track of and persist info about each benchmark at a higher level (a run),
+ * while the edu.touro.mcon152.bm.DiskMark class described each iteration's result, which is displayed by the UI as the benchmark run
  * progresses.
  * <p>
  * This class only knows how to do 'read' or 'write' disk benchmarks. It is instantiated by the
@@ -34,7 +33,7 @@ import static app.DiskMark.MarkType.WRITE;
  * <p>
  * To be Swing compliant this class extends SwingWorker and declares that its final return (when
  * doInBackground() is finished) is of type Boolean, and declares that intermediate results are communicated to
- * Swing using an instance of the app.DiskMark class.
+ * Swing using an instance of the edu.touro.mcon152.bm.DiskMark class.
  */
 
 public class DiskWorker extends SwingWorker<Boolean, DiskMark> {
@@ -47,8 +46,8 @@ public class DiskWorker extends SwingWorker<Boolean, DiskMark> {
 
         /*
           We 'got here' because: 1: End-user clicked 'Start' on the benchmark UI,
-          which triggered the start-benchmark event associated with the app.App::startBenchmark()
-          method.  2: startBenchmark() then instantiated a app.DiskWorker, and called
+          which triggered the start-benchmark event associated with the edu.touro.mcon152.bm.App::startBenchmark()
+          method.  2: startBenchmark() then instantiated a edu.touro.mcon152.bm.DiskWorker, and called
           its (super class's) execute() method, causing Swing to eventually
           call this doInBackground() method.
          */
@@ -291,7 +290,7 @@ public class DiskWorker extends SwingWorker<Boolean, DiskMark> {
      * Process a list of 'chunks' that have been processed, ie that our thread has previously
      * published to Swing. For my info, watch Professor Cohen's video -
      * Module_6_RefactorBadBM Swing_DiskWorker_Tutorial.mp4
-     * @param markList a list of app.DiskMark objects reflecting some completed benchmarks
+     * @param markList a list of edu.touro.mcon152.bm.DiskMark objects reflecting some completed benchmarks
      */
     @Override
     protected void process(List<DiskMark> markList) {
