@@ -45,7 +45,7 @@ public class App {
     public static int numOfMarks = 25;      // desired number of marks
     public static int numOfBlocks = 32;     // desired number of blocks
     public static int blockSizeKb = 512;    // size of a block in KBs
-    public static DiskWorker worker = null;
+    public static I_Disk_Worker worker = null;
     public static int nextMarkNumber = 1;   // number of the next mark
     public static double wMax = -1, wMin = -1, wAvg = -1;
     public static double rMax = -1, rMin = -1, rAvg = -1;
@@ -240,7 +240,7 @@ public class App {
             msg("worker is null abort...");
             return;
         }
-        worker.cancel(true);
+        worker.cancelRun(true);
     }
 
     public static void startBenchmark() {
@@ -263,8 +263,8 @@ public class App {
         Gui.mainFrame.adjustSensitivity();
 
         //4. set up disk worker thread and its event handlers
-        worker = new DiskWorker();
-        worker.addPropertyChangeListener((final PropertyChangeEvent event) -> {
+        worker = new DiskWorkerSwing();
+        worker.addDiskWorkerPropertyChangeListener((final PropertyChangeEvent event) -> {
             switch (event.getPropertyName()) {
                 case "progress":
                     int value = (Integer) event.getNewValue();
@@ -285,7 +285,7 @@ public class App {
         });
 
         //5. start the Swing worker thread
-        worker.execute();
+        worker.start();
     }
 
     /**
