@@ -19,8 +19,7 @@ dependencies {
 	// Charting api/runtime
 	implementation group: 'org.jfree', name: 'jfreechart', version: '1.0.17'
 	// persistence API
-	implementation group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '3.0.0'
-	implementation group: 'org.eclipse.persistence', name: 'eclipselink', version: '3.0.2'
+    implementation group: 'org.eclipse.persistence', name: 'eclipselink', version: '4.0.5'
 	// DBMS
 	implementation group: 'org.apache.derby', name: 'derby', version: '10.15.2.0'
 	implementation group: 'org.apache.derby', name: 'derbyshared', version: '10.15.2.0'
@@ -28,7 +27,6 @@ dependencies {
     testImplementation libs.junit.jupiter
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-implementation 'org.eclipse.persistence:eclipselink:4.0.2'
     // This dependency is used by the application.
     implementation libs.guava
 }
@@ -42,7 +40,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'app.App'
+    mainClass = 'edu.touro.mcon152.bm.App'
 }
 jar {
 archiveFileName = 'badBM.jar'
@@ -54,7 +52,7 @@ task customFatJar(type: Jar) {
     dependsOn classes  // ensure classes are compiled first
     
     manifest {
-        attributes 'Main-Class': 'app.App'
+        attributes 'Main-Class': 'edu.touro.mcon152.bm.App'
     }
     archiveBaseName = 'badBM'
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE

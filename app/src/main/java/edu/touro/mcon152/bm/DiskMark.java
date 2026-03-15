@@ -1,4 +1,4 @@
-package app;
+package edu.touro.mcon152.bm;
 
 import java.text.DecimalFormat;
 

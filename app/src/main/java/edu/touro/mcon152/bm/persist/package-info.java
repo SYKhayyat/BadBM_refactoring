@@ -3,4 +3,4 @@
  * data. This data can be used to gather statistical information
  * about the machine being tested.
  */
-package app;
+package edu.touro.mcon152.bm.persist;

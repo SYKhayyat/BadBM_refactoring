@@ -1,6 +1,6 @@
-package app;
+package edu.touro.mcon152.bm.ui;
 
-import app.App;
+import edu.touro.mcon152.bm.App;
 
 import java.io.File;
 
@@ -14,7 +14,7 @@ public class SelectFrame extends javax.swing.JFrame {
     private javax.swing.JFileChooser jFileChooser1;
 
     /**
-     * Creates new form app.SelectFrame
+     * Creates new form edu.touro.mcon152.bm.ui.SelectFrame
      */
     public SelectFrame() {
         initComponents();
