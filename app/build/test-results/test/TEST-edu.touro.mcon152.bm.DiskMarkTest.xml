@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.touro.mcon152.bm.DiskMarkTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-03-23T00:15:10.983Z" hostname="WINDOWS-1IMTBV2" time="0.037">
+  <properties/>
+  <testcase name="diskMarkToStringTestNull()" classname="edu.touro.mcon152.bm.DiskMarkTest" time="0.016"/>
+  <testcase name="diskMarkToStringTest()" classname="edu.touro.mcon152.bm.DiskMarkTest" time="0.005"/>
+  <testcase name="getBwMBSecAsStringTest()" classname="edu.touro.mcon152.bm.DiskMarkTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

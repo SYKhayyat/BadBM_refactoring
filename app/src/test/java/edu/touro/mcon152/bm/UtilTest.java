@@ -1,6 +1,4 @@
 package edu.touro.mcon152.bm;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import org.eclipse.persistence.jpa.jpql.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,6 +15,7 @@ public class UtilTest {
      * This test demonstrates many principles:
      * The Right Principle - In this test I put in right inputs and got a obviously right answer.
      * In other words, I have everything working just as it should.
+     * However, I made a small chang to break it; I wrote the expected outcome as the wrong number.
      * Border Conditions - Range - This checks for range, since I make sure that no numbers that
      * are less than min or greater than max are ever returned.
      * Border Conditions - Cardinality - This checks for cardinality,
@@ -30,7 +29,7 @@ public class UtilTest {
 
         int result = Util.randInt(lowerBound, upperBound);
 
-        Assertions.assertEquals(4, result, 2);
+        Assertions.assertEquals(7, result, 0);
         HashSet<Integer> randomInts = new HashSet<>();
         for (int i = 0; i < 500; i++) {
             randomInts.add(Util.randInt(lowerBound, upperBound));
