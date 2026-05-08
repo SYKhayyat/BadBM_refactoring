@@ -5,7 +5,8 @@ import edu.touro.mcon152.bm.persist.DiskRun;
 import java.beans.PropertyChangeListener;
 
 /**
- * This is an interface which coses an Issue, and which lets the DiskWorker not rely on SwingWorker.
+ * This interface abstracts all of the UI interactions that could be needed by DiskWorker,
+ * and can be implemented by any class that provides a user interface for using DiskWorker.
  */
 
 public interface I_UI {
@@ -18,5 +19,6 @@ public interface I_UI {
     void displayRun(DiskRun run);
     void finish();
     void showMessage(String s, String s1);
+    void showBlockingMessage(String s, String s1);
 
 }

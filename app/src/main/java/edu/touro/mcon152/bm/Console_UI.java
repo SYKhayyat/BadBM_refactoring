@@ -5,6 +5,10 @@ import edu.touro.mcon152.bm.persist.DiskRun;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is a class that enables this software to be run from the command line.
+ */
+
 public class Console_UI implements I_UI{
     DiskWorker dw;
     private int lastProgress;
@@ -15,6 +19,10 @@ public class Console_UI implements I_UI{
 
     public void cancel() {
         cancelled = true;
+    }
+    @Override
+    public void showBlockingMessage(String s, String s1){
+        showMessage(s, s1);
     }
 
 
