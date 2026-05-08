@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.touro.mcon152.bm.UtilTest" tests="9" skipped="0" failures="1" errors="0" timestamp="2026-03-23T00:15:11.022Z" hostname="WINDOWS-1IMTBV2" time="0.081">
+  <properties/>
+  <testcase name="randIntBoundariesTest()" classname="edu.touro.mcon152.bm.UtilTest" time="0.002"/>
+  <testcase name="randIntBoundariesTestThree()" classname="edu.touro.mcon152.bm.UtilTest" time="0.001"/>
+  <testcase name="randIntTest()" classname="edu.touro.mcon152.bm.UtilTest" time="0.007">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;7.0&gt; but was: &lt;4.0&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;7.0&gt; but was: &lt;4.0&gt;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:118)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:113)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:856)
+	at edu.touro.mcon152.bm.UtilTest.randIntTest(UtilTest.java:32)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+</failure>
+  </testcase>
+  <testcase name="randIntBoundariesTestTwo()" classname="edu.touro.mcon152.bm.UtilTest" time="0.001"/>
+  <testcase name="randIntPerformanceTest()" classname="edu.touro.mcon152.bm.UtilTest" time="0.002"/>
+  <testcase name="[1] 10.12, 10.12" classname="edu.touro.mcon152.bm.UtilTest" time="0.02"/>
+  <testcase name="[2] 0.0003, 0" classname="edu.touro.mcon152.bm.UtilTest" time="0.001"/>
+  <testcase name="[3] .1234567890987654321, 0.12" classname="edu.touro.mcon152.bm.UtilTest" time="0.001"/>
+  <testcase name="[4] -5.3, -5.3" classname="edu.touro.mcon152.bm.UtilTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
