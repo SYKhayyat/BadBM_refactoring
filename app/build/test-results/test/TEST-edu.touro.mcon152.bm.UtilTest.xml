@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="edu.touro.mcon152.bm.UtilTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-05-08T11:09:10.147Z" hostname="WINDOWS-1IMTBV2" time="0.083">
+<testsuite name="edu.touro.mcon152.bm.UtilTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-05-08T12:24:20.620Z" hostname="WINDOWS-1IMTBV2" time="0.058">
   <properties/>
-  <testcase name="randIntBoundariesTest()" classname="edu.touro.mcon152.bm.UtilTest" time="0.003"/>
+  <testcase name="randIntBoundariesTest()" classname="edu.touro.mcon152.bm.UtilTest" time="0.001"/>
   <testcase name="randIntBoundariesTestThree()" classname="edu.touro.mcon152.bm.UtilTest" time="0.001"/>
-  <testcase name="randIntTest()" classname="edu.touro.mcon152.bm.UtilTest" time="0.002"/>
-  <testcase name="randIntBoundariesTestTwo()" classname="edu.touro.mcon152.bm.UtilTest" time="0.002"/>
-  <testcase name="randIntPerformanceTest()" classname="edu.touro.mcon152.bm.UtilTest" time="0.003"/>
-  <testcase name="[1] 10.12, 10.12" classname="edu.touro.mcon152.bm.UtilTest" time="0.021"/>
+  <testcase name="randIntTest()" classname="edu.touro.mcon152.bm.UtilTest" time="0.001"/>
+  <testcase name="randIntBoundariesTestTwo()" classname="edu.touro.mcon152.bm.UtilTest" time="0.001"/>
+  <testcase name="randIntPerformanceTest()" classname="edu.touro.mcon152.bm.UtilTest" time="0.002"/>
+  <testcase name="[1] 10.12, 10.12" classname="edu.touro.mcon152.bm.UtilTest" time="0.016"/>
   <testcase name="[2] 0.0003, 0" classname="edu.touro.mcon152.bm.UtilTest" time="0.001"/>
   <testcase name="[3] .1234567890987654321, 0.12" classname="edu.touro.mcon152.bm.UtilTest" time="0.001"/>
   <testcase name="[4] -5.3, -5.3" classname="edu.touro.mcon152.bm.UtilTest" time="0.001"/>
