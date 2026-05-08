@@ -38,15 +38,29 @@ public class DiskWorker {
     I_UI userInterface;
     boolean status = true;
 
+    /**
+     * This gets the user interface for use in DIP.
+     * @param userInterface The way it displays information.
+     */
     public void setUserInterface(I_UI userInterface){
         this.userInterface = userInterface;
     }
+    /**
+     * This checks if the run has been cancelled.
+     */
     public boolean hasBeenCancelled(){
         return userInterface.hasBeenCancelled();
     }
+
     public void init(){
         userInterface.init();
     }
+
+    /**
+     * This runs the actual benchmark.
+     * @return the status of the benchmark.
+     * @throws Exception
+     */
     protected Boolean runBenchmark() throws Exception {
 
         /*
@@ -194,7 +208,7 @@ public class DiskWorker {
                             For system drives use the WRITE and READ operations\s
                             independantly by doing a cold reboot after the WRITE""";
             String s1 = "Clear Disk Cache Now";
-            userInterface.showMessage(s, s1);
+            userInterface.showBlockingMessage(s, s1);
         }
 
         // Same as above, just for Read operations instead of Writes.
@@ -273,6 +287,11 @@ public class DiskWorker {
         App.nextMarkNumber += App.numOfMarks;
         return true;
     }
+
+    /**
+     * This sets up the buffer for testing purposes.
+     * @param blockArr
+     */
     private static void initializeBuffer(byte[] blockArr) {
         for (int b = 0; b < blockArr.length; b++) {
             if (b % 2 == 0) {
@@ -280,6 +299,11 @@ public class DiskWorker {
             }
         }
     }
+
+    /**
+     * This is in charge of all the setting sof the current run of the software.
+     * @param run
+     */
     private static void setRunInfo(DiskRun run) {
         run.setNumMarks(App.numOfMarks);
         run.setNumBlocks(App.numOfBlocks);

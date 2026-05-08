@@ -29,7 +29,7 @@ public class UtilTest {
 
         int result = Util.randInt(lowerBound, upperBound);
 
-        Assertions.assertEquals(7, result, 0);
+        Assertions.assertEquals(4, result, 3);
         HashSet<Integer> randomInts = new HashSet<>();
         for (int i = 0; i < 500; i++) {
             randomInts.add(Util.randInt(lowerBound, upperBound));

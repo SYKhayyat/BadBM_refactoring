@@ -4,6 +4,7 @@ import edu.touro.mcon152.bm.persist.DiskRun;
 import edu.touro.mcon152.bm.ui.Gui;
 
 import javax.swing.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -20,12 +21,37 @@ public class SwingUI extends SwingWorker<Boolean, DiskMark> implements I_UI {
 
     DiskWorker dw;
 
+    /**
+     * This gives the UI a DiskWorker to work with.
+     * @param dw
+     */
     @Override
     public void setDW(DiskWorker dw){
         this.dw = dw;
         dw.setUserInterface(this);
     }
 
+    /**
+     * Lets messages be displayed synchronously.
+     * @param s    Message Text
+     * @param s1   Message title
+     */
+
+    @Override
+    public void showBlockingMessage(String s, String s1){
+        try {
+            SwingUtilities.invokeAndWait(() ->
+            {
+                JOptionPane.showMessageDialog(Gui.mainFrame, s, s1, JOptionPane.PLAIN_MESSAGE);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Clean up after a run.
+     */
     public void finish(){
         if (App.autoRemoveData) {
             Util.deleteDirectory(dataDir);
@@ -35,6 +61,9 @@ public class SwingUI extends SwingWorker<Boolean, DiskMark> implements I_UI {
     }
 
 
+    /**
+     * Sets up everything to start a run.
+     */
     @Override
     public void init(){
         Gui.updateLegend();  // init chart legend info
@@ -43,6 +72,11 @@ public class SwingUI extends SwingWorker<Boolean, DiskMark> implements I_UI {
             Gui.resetTestData();
         }
     }
+
+    /**
+     * Showa a run in real time.
+     * @param run The current run
+     */
     @Override
     public void displayRun(DiskRun run){
         SwingUtilities.invokeLater(() -> {
@@ -90,6 +124,11 @@ public class SwingUI extends SwingWorker<Boolean, DiskMark> implements I_UI {
         finish();
     }
 
+    /**
+     * A Swing method that starts everything off.
+     * @return
+     * @throws Exception
+     */
     @Override
     protected Boolean doInBackground() throws Exception {
         Boolean status;
