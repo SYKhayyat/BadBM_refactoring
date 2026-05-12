@@ -1,24 +1,14 @@
 package edu.touro.mcon152.bm;
 
-import edu.touro.mcon152.bm.benchmark.BenchmarkBase;
-import edu.touro.mcon152.bm.benchmark.ReadBenchmark;
-import edu.touro.mcon152.bm.benchmark.WriteBenchmark;
-import edu.touro.mcon152.bm.persist.DiskRun;
-import edu.touro.mcon152.bm.persist.EM;
-import jakarta.persistence.EntityManager;
-import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.Date;
-import java.util.List;
+import edu.touro.mcon152.bm.command.SimpleExecutor;
+import edu.touro.mcon152.bm.command.benchmark.BenchmarkBase;
+import edu.touro.mcon152.bm.command.benchmark.ReadBenchmark;
+import edu.touro.mcon152.bm.command.benchmark.WriteBenchmark;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static edu.touro.mcon152.bm.App.*;
-import static edu.touro.mcon152.bm.DiskMark.MarkType.READ;
-import static edu.touro.mcon152.bm.DiskMark.MarkType.WRITE;
 
 /**
  * Execute disk benchmarking. This class works together with an interface (edu.touro.mcon152.bm.I_UI)
@@ -65,6 +55,7 @@ public class DiskWorker {
      * @throws Exception
      */
     protected Boolean runBenchmark() throws Exception {
+        SimpleExecutor executor = new SimpleExecutor();
 
         /*
           We 'got here' because: 1: End-user clicked 'Start' on the benchmark UI,
@@ -82,8 +73,10 @@ public class DiskWorker {
           The DiskWriter allows a Write, Read, or both types of BMs to be started. They are done serially.
          */
         if (writeTest){
-            benchmark = new WriteBenchmark(userInterface);
-            lastStatus = benchmark.runBenchmark();
+            benchmark = new WriteBenchmark(userInterface, App.numOfMarks, App.numOfBlocks,
+                    App.blockSizeKb, App.blockSequence, App.nextMarkNumber, App.multiFile,
+                    App.writeSyncEnable, App.dataDir);
+            lastStatus = executor.execute(benchmark);
             if (!lastStatus){
                 return false;
             }
@@ -106,8 +99,10 @@ public class DiskWorker {
         }
         // Same as above, just for Read operations instead of Writes.
         if (App.readTest) {
-            benchmark = new ReadBenchmark(userInterface);
-            lastStatus = benchmark.runBenchmark();
+            benchmark = new ReadBenchmark(userInterface, App.numOfMarks, App.numOfBlocks,
+                    App.blockSizeKb, App.blockSequence, App.nextMarkNumber, App.multiFile,
+                    App.writeSyncEnable, App.dataDir);
+            lastStatus = executor.execute(benchmark);
             if (!lastStatus){
                 return false;
             }

@@ -20,5 +20,6 @@ public interface I_UI {
     void finish();
     void showMessage(String s, String s1);
     void showBlockingMessage(String s, String s1);
+    void log(String s);
 
 }

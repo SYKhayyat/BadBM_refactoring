@@ -1,4 +1,4 @@
-package edu.touro.mcon152.bm.benchmark;
+package edu.touro.mcon152.bm.command.benchmark;
 
 import edu.touro.mcon152.bm.App;
 import edu.touro.mcon152.bm.DiskMark;
@@ -15,43 +15,60 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static edu.touro.mcon152.bm.App.*;
-import static edu.touro.mcon152.bm.App.MEGABYTE;
-import static edu.touro.mcon152.bm.App.dataDir;
-import static edu.touro.mcon152.bm.App.msg;
-import static edu.touro.mcon152.bm.App.numOfBlocks;
-import static edu.touro.mcon152.bm.App.testFile;
 import static edu.touro.mcon152.bm.DiskMark.MarkType.WRITE;
 
 public class WriteBenchmark extends BenchmarkBase{
+    final int KILOBYTE = 1024;
+    final int MEGABYTE = 1024 * 1024;
+    DiskMark wMark;
     /*
           init vars that keep track of benchmarks, and a large write buffer
      */
-    int startFileNum = App.nextMarkNumber;
-    int wUnitsComplete = 0, rUnitsComplete = 0, unitsComplete;
-    int wUnitsTotal = App.writeTest ? numOfBlocks * numOfMarks : 0;
-    int rUnitsTotal = App.readTest ? numOfBlocks * numOfMarks : 0;
-    int unitsTotal = wUnitsTotal + rUnitsTotal;
-    float percentComplete;
-    DiskMark wMark;  // declare vars that will point to objects used to pass progress to UI
-    public WriteBenchmark(I_UI userInterface) {
+    private final int numOfMarks, numOfBlocks, blockSizeKB;
+    private final DiskRun.BlockSequence blockSequence;
+    private final int startFileNum;
+    private final boolean multiFile, writeSyncEnabled;
+    private final File dataDir;
+    int blockSize;
+    int unitsTotal;
+
+    public WriteBenchmark(
+            I_UI userInterface, int numOfMarks, int numOfBlocks,
+            int blockSizeKb, DiskRun.BlockSequence blockSequence,
+            int startFileNum, boolean multiFile, boolean writeSyncEnable, File dataDir) {
         super(userInterface);
+        this.numOfMarks = numOfMarks;
+        this.numOfBlocks = numOfBlocks;
+        this.blockSizeKB = blockSizeKb;
+        this. blockSequence = blockSequence;
+        this.startFileNum = startFileNum;
+        this. multiFile = multiFile;
+        this.writeSyncEnabled = writeSyncEnable;
+        this.dataDir = dataDir;
+        blockSize = this.blockSizeKB * KILOBYTE;
+        unitsTotal = this.numOfMarks * this.numOfBlocks;
+
     }
     /**
      * This is the main worker loop. It does a full benchmark.
      * @return boolean    the success or failure of the run.
      */
     @Override
-    public boolean runBenchmark() {
-        byte[] blockArr = super.makeBuffer();
+    public boolean execute() {
+        File testFile = null;
+        int wUnitsComplete = 0;
+        int rUnitsComplete = 0;
+        int unitsComplete;
+        float percentComplete;
+        byte[] blockArr = super.makeBuffer(blockSize);
         DiskRun run = new DiskRun(DiskRun.IOMode.WRITE, blockSequence);
-        setRunInfo(run);
+        setRunInfo(run, numOfMarks, numOfBlocks, blockSizeKB, dataDir);
 
         // Tell logger and GUI to display what we know so far about the Run
-        msg("disk info: (" + run.getDiskInfo() + ")");
+        userInterface.log("disk info: (" + run.getDiskInfo() + ")");
         userInterface.setTitle(run);
         // Create a test data file using the default file system and config-specified location
-        if (!App.multiFile) {
+        if (!multiFile) {
             testFile = new File(dataDir.getAbsolutePath() + File.separator + "testdata.jdm");
         }
 
@@ -60,9 +77,9 @@ public class WriteBenchmark extends BenchmarkBase{
               that keeps writing data (in its own loop - for specified # of blocks). Each 'Mark' is timed
               and is reported to the GUI for display as each Mark completes.
              */
-        for (int m = startFileNum; m < startFileNum + App.numOfMarks && !hasBeenCancelled(); m++) {
+        for (int m = startFileNum; m < startFileNum + numOfMarks && !hasBeenCancelled(); m++) {
 
-            if (App.multiFile) {
+            if (multiFile) {
                 testFile = new File(dataDir.getAbsolutePath()
                         + File.separator + "testdata" + m + ".jdm");
             }
@@ -72,14 +89,15 @@ public class WriteBenchmark extends BenchmarkBase{
             long totalBytesWrittenInMark = 0;
 
             String mode = "rw";
-            if (App.writeSyncEnable) {
+            if (writeSyncEnabled) {
                 mode = "rwd";
             }
 
             try {
+                if (testFile == null) throw new IllegalStateException("testFile should have been initialized");
                 try (RandomAccessFile rAccFile = new RandomAccessFile(testFile, mode)) {
                     for (int b = 0; b < numOfBlocks; b++) {
-                        if (App.blockSequence == DiskRun.BlockSequence.RANDOM) {
+                        if (blockSequence == DiskRun.BlockSequence.RANDOM) {
                             int rLoc = Util.randInt(0, numOfBlocks - 1);
                             rAccFile.seek((long) rLoc * blockSize);
                         } else {
@@ -110,7 +128,7 @@ public class WriteBenchmark extends BenchmarkBase{
             double sec = (double) elapsedTimeNs / (double) 1000000000;
             double mbWritten = (double) totalBytesWrittenInMark / (double) MEGABYTE;
             wMark.setBwMbSec(mbWritten / sec);
-            msg("m:" + m + " write IO is " + wMark.getBwMbSecAsString() + " MB/s     "
+            userInterface.log("m:" + m + " write IO is " + wMark.getBwMbSecAsString() + " MB/s     "
                     + "(" + Util.displayString(mbWritten) + "MB written in "
                     + Util.displayString(sec) + " sec)");
             App.updateMetrics(wMark);
