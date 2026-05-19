@@ -91,6 +91,11 @@ public class Console_UI implements I_UI{
     }
 
     @Override
+    public void log(String s){
+        System.out.println(s);
+    }
+
+    @Override
     public void finish() {
         finished = true;
         if (App.autoRemoveData) {

@@ -49,6 +49,11 @@ public class SwingUI extends SwingWorker<Boolean, DiskMark> implements I_UI {
         }
     }
 
+    @Override
+    public void log(String s){
+        App.msg(s);
+    }
+
     /**
      * Clean up after a run.
      */
