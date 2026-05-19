@@ -16,7 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static edu.touro.mcon152.bm.DiskMark.MarkType.READ;
-
+/**
+ * This is the command for write benchmarks.
+ */
 public class ReadBenchmark extends BenchmarkBase {
     final int KILOBYTE = 1024;
     final int MEGABYTE = 1024 * 1024;
