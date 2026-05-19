@@ -17,6 +17,9 @@ import java.util.logging.Logger;
 
 import static edu.touro.mcon152.bm.DiskMark.MarkType.WRITE;
 
+/**
+ * This is the command for write benchmarks.
+ */
 public class WriteBenchmark extends BenchmarkBase{
     final int KILOBYTE = 1024;
     final int MEGABYTE = 1024 * 1024;
