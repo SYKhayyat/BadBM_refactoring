@@ -33,6 +33,7 @@ public class ReadBenchmark extends BenchmarkBase {
     private final boolean multiFile, writeSyncEnabled;
     private final File dataDir;
     int blockSize;
+    private DiskRun run;
     int unitsTotal;
 
 
@@ -65,7 +66,7 @@ public class ReadBenchmark extends BenchmarkBase {
         int unitsComplete;
         float percentComplete;
         byte[] blockArr = super.makeBuffer(blockSize);
-        DiskRun run = new DiskRun(DiskRun.IOMode.READ, blockSequence);
+        run = new DiskRun(DiskRun.IOMode.READ, blockSequence);
         setRunInfo(run, numOfMarks, numOfBlocks, blockSizeKB, dataDir);
         if (!multiFile) {
             testFile = new File(dataDir, "testdata.jdm");
@@ -74,6 +75,7 @@ public class ReadBenchmark extends BenchmarkBase {
         userInterface.log("disk info: (" + run.getDiskInfo() + ")");
 
         userInterface.setTitle(run);
+        System.out.println("Set title to: " + run);
 
         for (int m = startFileNum; m < startFileNum + numOfMarks && !hasBeenCancelled(); m++) {
 
@@ -127,17 +129,13 @@ public class ReadBenchmark extends BenchmarkBase {
             run.setRunAvg(rMark.getCumAvg());
             run.setEndTime(new Date());
         }
+        System.out.println("WriteBenchmark2: run is " + run);
 
-        /*
-         Persist info about the Read BM Run (e.g. into Derby Database) and add it to a GUI panel
-         */
-        EntityManager em = EM.getEntityManager();
-        em.getTransaction().begin();
-        em.persist(run);
-        em.getTransaction().commit();
 
-        userInterface.displayRun(run);
         return true;
+    }
+    public DiskRun getResult(){
+        return run;
     }
     }
 
