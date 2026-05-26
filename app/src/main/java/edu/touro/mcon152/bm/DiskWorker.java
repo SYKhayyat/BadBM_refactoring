@@ -7,6 +7,7 @@ import edu.touro.mcon152.bm.command.benchmark.WriteBenchmark;
 import edu.touro.mcon152.bm.observers.DBObserver;
 import edu.touro.mcon152.bm.observers.GUIObserver;
 import edu.touro.mcon152.bm.observers.I_Observer;
+import edu.touro.mcon152.bm.observers.SlackObserver;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,8 +62,10 @@ public class DiskWorker {
         SimpleExecutor executor = new SimpleExecutor();
         I_Observer db = new DBObserver();
         I_Observer gui = new GUIObserver(userInterface);
+        I_Observer slackObserver = new SlackObserver();
         executor.register(db);
         executor.register(gui);
+        executor.register(slackObserver);
 
         /*
           We 'got here' because: 1: End-user clicked 'Start' on the benchmark UI,

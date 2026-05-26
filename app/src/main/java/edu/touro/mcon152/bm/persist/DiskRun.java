@@ -1,5 +1,6 @@
 package edu.touro.mcon152.bm.persist;
 
+import edu.touro.mcon152.bm.DiskMark;
 import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
@@ -7,6 +8,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -69,6 +71,8 @@ public class DiskRun implements Serializable {
     @Column
     private
     double runAvg = 0;
+    @Transient
+    private List<DiskMark> markList = new LinkedList<>();
     public DiskRun() {
         this.startTime = new Date();
     }
@@ -76,6 +80,12 @@ public class DiskRun implements Serializable {
         this.startTime = new Date();
         setIoMode(type);
         setBlockOrder(order);
+    }
+    public void addToList(DiskMark mark){
+        markList.add(mark);
+    }
+    public List<DiskMark> getMarkList(){
+        return markList;
     }
 
     /**

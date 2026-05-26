@@ -118,6 +118,8 @@ public class ReadBenchmark extends BenchmarkBase {
             long elapsedTimeNs = endTime - startTime;
             double sec = (double) elapsedTimeNs / (double) 1000000000;
             double mbRead = (double) totalBytesReadInMark / (double) MEGABYTE;
+            run.addToList(rMark);
+            rMark.setTime(elapsedTimeNs);
             rMark.setBwMbSec(mbRead / sec);
             userInterface.log("m:" + m + " READ IO is " + rMark.getBwMbSec() + " MB/s    "
                     + "(MBread " + mbRead + " in " + sec + " sec)");

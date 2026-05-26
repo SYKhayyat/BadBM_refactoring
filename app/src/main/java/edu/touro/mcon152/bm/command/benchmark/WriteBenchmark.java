@@ -131,7 +131,9 @@ public class WriteBenchmark extends BenchmarkBase{
             long elapsedTimeNs = endTime - startTime;
             double sec = (double) elapsedTimeNs / (double) 1000000000;
             double mbWritten = (double) totalBytesWrittenInMark / (double) MEGABYTE;
+            wMark.setTime(elapsedTimeNs);
             wMark.setBwMbSec(mbWritten / sec);
+            run.addToList(wMark);
             userInterface.log("m:" + m + " write IO is " + wMark.getBwMbSecAsString() + " MB/s     "
                     + "(" + Util.displayString(mbWritten) + "MB written in "
                     + Util.displayString(sec) + " sec)");

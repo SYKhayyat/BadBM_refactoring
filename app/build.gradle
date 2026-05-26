@@ -28,6 +28,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.0' // REQUIRED for your CsvSource tests
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation group: 'com.slack.api', name: 'slack-api-client', version: '1.16.0'
 
     // This dependency is used by the application.
     implementation libs.guava
