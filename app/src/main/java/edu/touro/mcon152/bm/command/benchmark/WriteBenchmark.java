@@ -34,6 +34,7 @@ public class WriteBenchmark extends BenchmarkBase{
     private final File dataDir;
     int blockSize;
     int unitsTotal;
+    private DiskRun run;
 
     public WriteBenchmark(
             I_UI userInterface, int numOfMarks, int numOfBlocks,
@@ -64,7 +65,7 @@ public class WriteBenchmark extends BenchmarkBase{
         int unitsComplete;
         float percentComplete;
         byte[] blockArr = super.makeBuffer(blockSize);
-        DiskRun run = new DiskRun(DiskRun.IOMode.WRITE, blockSequence);
+        run = new DiskRun(DiskRun.IOMode.WRITE, blockSequence);
         setRunInfo(run, numOfMarks, numOfBlocks, blockSizeKB, dataDir);
 
         // Tell logger and GUI to display what we know so far about the Run
@@ -130,7 +131,9 @@ public class WriteBenchmark extends BenchmarkBase{
             long elapsedTimeNs = endTime - startTime;
             double sec = (double) elapsedTimeNs / (double) 1000000000;
             double mbWritten = (double) totalBytesWrittenInMark / (double) MEGABYTE;
+            wMark.setTime(elapsedTimeNs);
             wMark.setBwMbSec(mbWritten / sec);
+            run.addToList(wMark);
             userInterface.log("m:" + m + " write IO is " + wMark.getBwMbSecAsString() + " MB/s     "
                     + "(" + Util.displayString(mbWritten) + "MB written in "
                     + Util.displayString(sec) + " sec)");
@@ -148,16 +151,11 @@ public class WriteBenchmark extends BenchmarkBase{
             run.setEndTime(new Date());
         } // END outer loop for specified duration (number of 'marks') for WRITE benchmark
 
-            /*
-              Persist info about the Write BM Run (e.g. into Derby Database) and add it to a GUI panel
-             */
-        EntityManager em = EM.getEntityManager();
-        em.getTransaction().begin();
-        em.persist(run);
-        em.getTransaction().commit();
 
-        userInterface.displayRun(run);
         return true;
+    }
+    public DiskRun getResult(){
+        return run;
     }
     }
 
